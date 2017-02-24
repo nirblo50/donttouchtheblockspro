@@ -1,4 +1,4 @@
-package com.mygdx.donttouchtheblocksnir;
+package com.mygdx.donttouchtheblockspro;
 
 
 import com.badlogic.gdx.Gdx;
@@ -10,14 +10,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  * Created by nirbl on 26/11/2016.
  */
 
-public class TimeText
+public class MyText
 {
     private SpriteBatch spriteBatch;
     private BitmapFont font;
     private String text;
 
 
-    public TimeText()
+    public MyText()
     {
         spriteBatch = new SpriteBatch();
         //font = new BitmapFont(Gdx.files.internal("myFont.fnt"));
@@ -49,6 +49,19 @@ public class TimeText
 
         spriteBatch.end();
     }
+
+    public void drawStart()
+    {
+        int x1 = (int)((double)Gdx.graphics.getWidth()*0.28);
+        int y1 =(int)((double)Gdx.graphics.getHeight()*0.49);
+        int y2 =(int)((double)Gdx.graphics.getHeight()*0.535);
+        spriteBatch.begin();
+        font.setColor(Color.BLACK);
+        font.getData().setScale(5);
+        font.draw(spriteBatch, "Tap screen and don't release to start game", x1 ,y2);
+        spriteBatch.end();
+    }
+
 
 
     // returns the time with only two digits after the dot

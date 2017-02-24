@@ -1,4 +1,4 @@
-package com.mygdx.donttouchtheblocksnir;
+package com.mygdx.donttouchtheblockspro;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;

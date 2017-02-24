@@ -1,10 +1,10 @@
-package com.mygdx.donttouchtheblocksnir;
+package com.mygdx.donttouchtheblockspro;
 
 import android.os.Bundle;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.mygdx.donttouchtheblocksnir.MyGdxGame;
+import com.mygdx.donttouchtheblockspro.MyGdxGame;
 
 public class AndroidLauncher extends AndroidApplication {
 	@Override

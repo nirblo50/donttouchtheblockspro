@@ -1,4 +1,4 @@
-package com.mygdx.donttouchtheblocksnir;
+package com.mygdx.donttouchtheblockspro;
 
         import com.badlogic.gdx.Gdx;
         import com.badlogic.gdx.graphics.Texture;
@@ -23,7 +23,7 @@ public class Blocks
 
     public Blocks()
     {
-        texture = new Texture(Gdx.files.internal("yoav.png"));
+        texture = new Texture(Gdx.files.internal("block4.png"));
         batch = new SpriteBatch();
         enable = false;
     }

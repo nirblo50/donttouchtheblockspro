@@ -1,4 +1,4 @@
-package com.mygdx.donttouchtheblocksnir;
+package com.mygdx.donttouchtheblockspro;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
