@@ -16,9 +16,9 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor
 	//o the Preferences of the high score
 	Preferences prefs;
 
-	private com.mygdx.donttouchtheblockspro.Blocks[] blocks;
+	private Blocks[] blocks;
 	private StartMenu startMenu;
-	private com.mygdx.donttouchtheblockspro.LostMenu lostMenu;
+	private LostMenu lostMenu;
 	private MyText myText;
 	private Background background;
 
@@ -51,64 +51,27 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor
 		//o the high score
 		prefs = Gdx.app.getPreferences("highScore");
 		highScore = prefs.getFloat("highScore");
-		lostFlag = false;
-
-		blocks = new com.mygdx.donttouchtheblockspro.Blocks[8];
-
-		//o sets the places for the first blocks
-		for (int i = 0; i<blocks.length; i++)
-		{
-			blocks[i] = new com.mygdx.donttouchtheblockspro.Blocks();
-			blocks[i].setHeight(randomHeighth());
-			blocks[i].setWidth(randomWidth());
-		}
-
-		blocks[0].setEnable(true);
-		blocks[1].setEnable(true);
-		blocks[2].setEnable(true);
-
-		blocks[0].setPosX(randomPos(blocks[0].getWidth()));			//o up to zig down
-		blocks[0].setPosY(Gdx.graphics.getHeight());
 
 
-		blocks[1].setPosX(randomPos(blocks[1].getWidth()));			//o down to up
-		blocks[1].setPosY(0-blocks[1].getHeight());
+		blocks = new Blocks[8];
 
-		blocks[2].setPosX(0-blocks[2].getWidth());
-		blocks[2].setPosY(randomPos2(blocks[2].getHeight()));
-
-		blocks[3].setPosX(Gdx.graphics.getWidth());
-		blocks[3].setPosY(randomPos2(blocks[3].getHeight()));
-
-		blocks[4].setPosX(0-blocks[4].getWidth());
-		blocks[4].setPosY(randomPos2(blocks[4].getHeight()));
-
-		blocks[5].setPosX(Gdx.graphics.getWidth());
-		blocks[5].setPosY(randomPos2(blocks[5].getHeight()));
-
-		blocks[6].setPosX(Gdx.graphics.getWidth());
-		blocks[6].setPosY(-blocks[6].getHeight());
-
-		blocks[7].setPosX(randomPos(blocks[7].getWidth()));
-		blocks[7].setPosY(Gdx.graphics.getHeight());
-
+		//o set the blocks statements an place in the beginning of the game
+		setInitialBlocks(blocks , dir1, dir2, dir3, dir4);
 
 		startMenu = new StartMenu();
-		lostMenu = new com.mygdx.donttouchtheblockspro.LostMenu();
+		lostMenu = new LostMenu();
 		myText = new MyText();
 		timePast = 0;
 
 		isGame = false;
 		gameLost = false;
 		finalStart = false;
+		lostFlag = false;
 
 		posX = 0;
 		posY = 0;
 
-		dir1 = randomDir();
-		dir2 = randomDir();
-		dir3 = randomDir();
-		dir4 = randomDir();
+
 
 	}
 
@@ -249,9 +212,12 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor
 			}
 
 			//o if the game was lost (finger lifted)
-			if (gameLost) {
+			if (gameLost)
+			{
+
 				//o check if new score is better than the old high score
-				if (timePast > highScore && !lostFlag) {
+				if (timePast > highScore && !lostFlag)
+				{
 					//o put the new score as the new high score
 					highScore = timePast;
 					prefs.putFloat("highScore", highScore);
@@ -267,14 +233,21 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor
 
 				lostMenu.getBatch().enableBlending();
 				lostMenu.drawMenu();
-				myText.drawScoreText(highScore, "highScore");
-				myText.drawScoreText(score, "score");
+				myText.drawHighScore(highScore);
+				myText.drawScoreText(score);
 				lostFlag = true;
+
 			}
 
+		if(isGame && !finalStart)
+		{
+			startMenu.getBatch().disableBlending();
+			lostMenu.getBatch().disableBlending();
+			myText.drawStart();
 		}
 
 
+		}
 
 
 
@@ -303,39 +276,29 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button)
 	{
+		//o the circle parameters
+		int cicleX = myText.getCircleX();
+		int cicleY = myText.getCircleY();
+		int radius = myText.getRadius();
+
 		posX = screenX;
 		posY = Gdx.graphics.getHeight() - screenY;
 
 		//o if lost game and restart
 		if(gameLost)
 		{
-			//dispose();
-			//create();
-			isGame = false;
-			gameLost = false;
-			finalStart = false;
-			gameLost = false;
-			lostFlag = false;
-
-			setInitialBlocks(blocks);
-
+			dispose();
+			create();
 		}
 
 
-
+		//o if the game was lost and player restarts (starts "in between" page)
 		if(!isGame)
-		{
-			startMenu.getBatch().disableBlending();
-			lostMenu.getBatch().disableBlending();
-			myText.drawStart();
 			isGame = true;
-		}
 
-		else
-		{
-			//myText.getSpriteBatch().disableBlending();
+		//o if already inside "in between" page and player touch screen
+		else if (posX >= cicleX && posX <= cicleX+radius && posY >= cicleY && posY <= cicleY+radius )
 			finalStart = true;
-		}
 
 
 		gameLost = false;
@@ -347,7 +310,8 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button)
 	{
-		if (finalStart) {
+		if (finalStart)
+		{
 			gameLost = true;
 			isGame = false;
 			startMenu.getBatch().disableBlending();
@@ -403,7 +367,7 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor
 
 
 	//o setts the place of the first blocks
-	public static void setInitialBlocks(Blocks[] blocks)
+	public static void setInitialBlocks(Blocks[] blocks, int dir1, int dir2, int dir3, int dir4)
 	{
 		//o sets the places for the first blocks
 		for (int i = 0; i<blocks.length; i++)
@@ -441,6 +405,11 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor
 
 		blocks[7].setPosX(randomPos(blocks[7].getWidth()));
 		blocks[7].setPosY(Gdx.graphics.getHeight());
+
+		dir1 = randomDir();
+		dir2 = randomDir();
+		dir3 = randomDir();
+		dir4 = randomDir();
 
 	}
 
@@ -499,7 +468,7 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor
 
 
 	//o checks if finger touched the block
-	public static boolean didTouchBlock(com.mygdx.donttouchtheblockspro.Blocks block, int posX, int posY)
+	public static boolean didTouchBlock(Blocks block, int posX, int posY)
 	{
 		int height = block.getHeight();
 		int width = block.getWidth();
@@ -514,5 +483,44 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor
 		}
 		return false;
 	}
+
+
+
+
+	public static void startFlags(boolean isGame, boolean gameLost, boolean finalStart, boolean lostFlag)
+	{
+		isGame = false;
+		gameLost = false;
+		finalStart = false;
+		lostFlag = false;
+	}
+
+
+	public static void inBetweenFlags(boolean isGame, boolean gameLost, boolean finalStart, boolean lostFlag)
+	{
+		isGame = true;
+		gameLost = false;
+		finalStart = false;
+		lostFlag = false;
+	}
+
+
+	public static void gameFlags(boolean isGame, boolean gameLost, boolean finalStart, boolean lostFlag)
+	{
+		isGame = true;
+		gameLost = false;
+		finalStart = true;
+		lostFlag = false;
+	}
+
+	public static void lostFlags(boolean isGame, boolean gameLost, boolean finalStart, boolean lostFlag)
+	{
+		isGame = false;
+		gameLost = true;
+		finalStart = false;
+		lostFlag = true;
+	}
+
+
 
 }
