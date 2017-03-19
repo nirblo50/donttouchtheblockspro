@@ -106,7 +106,12 @@ public class MyText
                 mone++;
         }
 
+       if(text.length() >= mone+3)
         text = text.substring(0, mone+3);
+        else if(text.length() >= mone+2)
+           text = text.substring(0, mone+2);
+        else if(text.length() >= mone+1)
+           text = text.substring(0, mone+1);
         return text;
     }
 

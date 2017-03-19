@@ -4,7 +4,11 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
 import java.util.Random;
 
@@ -51,7 +55,7 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor
 		//o the high score
 		prefs = Gdx.app.getPreferences("highScore");
 		highScore = prefs.getFloat("highScore");
-
+		makeFont();
 
 		blocks = new Blocks[8];
 
@@ -412,6 +416,27 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor
 		dir4 = randomDir();
 
 	}
+
+
+
+
+	public void makeFont()
+	{
+		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("truetypefont/Amble-Light.ttf"));
+		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+		parameter.size = 30;
+		parameter.borderWidth = 1;
+		parameter.color = Color.YELLOW;
+		parameter.shadowOffsetX = 3;
+		parameter.shadowOffsetY = 3;
+		parameter.shadowColor = new Color(0, 0.5f, 0, 0.75f);
+		BitmapFont font24 = generator.generateFont(parameter); // font size 24 pixels
+		generator.dispose();
+
+		Label.LabelStyle labelStyle = new Label.LabelStyle();
+		labelStyle.font = font24;
+	}
+
 
 
 	//o randomize a x place to start the block
