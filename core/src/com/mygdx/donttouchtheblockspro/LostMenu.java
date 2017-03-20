@@ -23,10 +23,10 @@ public class LostMenu
     public void drawMenu()
     {
         int x = 0;
-        int y = Gdx.graphics.getHeight()/3;
+        int y = (int)(Gdx.graphics.getHeight()*0.3);
 
         batch.begin();
-        batch.draw(texture,x, y-150, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()/2-50 );
+        batch.draw(texture,x, y, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()/2-50 );
         batch.end();
 
     }

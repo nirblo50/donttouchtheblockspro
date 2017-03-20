@@ -25,6 +25,9 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor
 	private LostMenu lostMenu;
 	private MyText myText;
 	private Background background;
+	private MyFont startFont;
+	private MyFont scoreFont;
+	private MyFont timeFont;
 
 
 	private float timePast;		//o the time that passed since game started
@@ -65,6 +68,9 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor
 		startMenu = new StartMenu();
 		lostMenu = new LostMenu();
 		myText = new MyText();
+		startFont = new MyFont("start");
+		scoreFont = new MyFont("score");
+		timeFont = new MyFont("time");
 		timePast = 0;
 
 		isGame = false;
@@ -95,6 +101,8 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor
 			//o if the player had started the game
 			if (isGame && finalStart)
 			{
+				timeFont.drawTime(timePast);
+
 				if (timePast > 2.5)
 					blocks[3].setEnable(true);
 				if (timePast > 5.0)
@@ -205,7 +213,7 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor
 				}
 
 
-				myText.drawText(timePast);        //o shows the time text
+				//myText.drawText(timePast);        //o shows the time text
 			}
 
 
@@ -237,8 +245,9 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor
 
 				lostMenu.getBatch().enableBlending();
 				lostMenu.drawMenu();
-				myText.drawHighScore(highScore);
-				myText.drawScoreText(score);
+				//myText.drawHighScore(highScore);
+				//myText.drawScoreText(score);
+				scoreFont.drawLostScore(score, highScore);
 				lostFlag = true;
 
 			}
@@ -247,7 +256,7 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor
 		{
 			startMenu.getBatch().disableBlending();
 			lostMenu.getBatch().disableBlending();
-			myText.drawStart();
+			startFont.drawStart();
 		}
 
 
