@@ -4,11 +4,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Preferences;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
 import java.util.Random;
 
@@ -58,7 +54,6 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor
 		//o the high score
 		prefs = Gdx.app.getPreferences("highScore");
 		highScore = prefs.getFloat("highScore");
-		makeFont();
 
 		blocks = new Blocks[8];
 
@@ -94,14 +89,12 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor
 		//o draws the background
 		background.drawBackground();
 
-
-			timePast += graphics.getDeltaTime();        //o calculate the time that past simce game has began
+		timePast += graphics.getDeltaTime();        //o calculate the time that past simce game has began
 
 
 			//o if the player had started the game
 			if (isGame && finalStart)
 			{
-				timeFont.drawTime(timePast);
 
 				if (timePast > 2.5)
 					blocks[3].setEnable(true);
@@ -213,7 +206,8 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor
 				}
 
 
-				//myText.drawText(timePast);        //o shows the time text
+
+				timeFont.drawTime(timePast);		//o shows the time text
 			}
 
 
@@ -278,6 +272,12 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor
 		myText.getSpriteBatch().dispose();
 		myText.getFont().dispose();
 		background.getTexture().dispose();
+		scoreFont.getBatch().dispose();
+		scoreFont.getFont().dispose();
+		startFont.getBatch().dispose();
+		startFont.getFont().dispose();
+		timeFont.getBatch().dispose();
+		timeFont.getFont().dispose();
 		for(int i=0; i<blocks.length; i++)
 		{
 			blocks[i].getBatch().dispose();
@@ -310,7 +310,8 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor
 			isGame = true;
 
 		//o if already inside "in between" page and player touch screen
-		else if (posX >= cicleX && posX <= cicleX+radius && posY >= cicleY && posY <= cicleY+radius )
+		//else if (posX >= cicleX && posX <= cicleX+radius && posY >= cicleY && posY <= cicleY+radius )
+		else if(posX > 0)
 			finalStart = true;
 
 
@@ -428,26 +429,6 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor
 
 
 
-
-	public void makeFont()
-	{
-		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("truetypefont/Amble-Light.ttf"));
-		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-		parameter.size = 30;
-		parameter.borderWidth = 1;
-		parameter.color = Color.YELLOW;
-		parameter.shadowOffsetX = 3;
-		parameter.shadowOffsetY = 3;
-		parameter.shadowColor = new Color(0, 0.5f, 0, 0.75f);
-		BitmapFont font24 = generator.generateFont(parameter); // font size 24 pixels
-		generator.dispose();
-
-		Label.LabelStyle labelStyle = new Label.LabelStyle();
-		labelStyle.font = font24;
-	}
-
-
-
 	//o randomize a x place to start the block
 	public static int randomPos(int weidth)
 	{
@@ -472,7 +453,9 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor
 		int lvl = (int) lv;
 		Random rnd = new Random();
 		int speed = rnd.nextInt(13 + lvl /2 -10)+10;
-		return speed;
+		double x = speed * graphics.getWidth() / 1440;
+		System.out.println("*********   " + x + "   *********" );
+		return (int)x;
 	}
 
 	//o generate a random Weidth for the block

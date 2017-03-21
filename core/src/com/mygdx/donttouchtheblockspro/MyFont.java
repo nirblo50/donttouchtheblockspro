@@ -3,6 +3,8 @@ package com.mygdx.donttouchtheblockspro;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
@@ -50,7 +52,7 @@ public class MyFont
     public void drawTime(float time)
     {
         int x = (int)font.getLineHeight()/2;
-        int y = (int)(Gdx.graphics.getHeight()) - x ;
+        int y = Gdx.graphics.getHeight() - x ;
 
         batch.begin();
         font.draw(batch, floatToScore(time)+"(s)",x,y);
@@ -75,6 +77,9 @@ public class MyFont
 
     public void drawStart()
     {
+        Texture texture2 = new Texture(Gdx.files.internal("circleAura.png"));;
+        Batch batch2= new SpriteBatch();
+
         int x = Gdx.graphics.getWidth()/2 - font.getRegion().getRegionWidth()/2;
         int y = (int)(Gdx.graphics.getHeight()*0.8) - (int)font.getLineHeight();
         String st1 = "Tap screen and don't";
@@ -84,8 +89,6 @@ public class MyFont
         font.draw(batch, st1, x, y);
         font.draw(batch, st2, x, y  - (int)(font.getLineHeight()*1.5));
         batch.end();
-
-
     }
 
     public SpriteBatch getBatch() {
