@@ -77,7 +77,6 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor
 		posY = 0;
 
 
-
 	}
 
 	@Override
@@ -109,7 +108,8 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor
 
 
 				//o if 1st block reach end
-				if ((blocks[0].getPosY() <= 0 - blocks[0].getHeight())) {
+				if ((blocks[0].getPosY() <= 0 - blocks[0].getHeight()))
+				{
 					blocks[0].setHeight(randomHeighth());
 					blocks[0].setWidth((randomWidth()));
 					blocks[0].setPosX(randomPos(blocks[0].getWidth()));
@@ -119,15 +119,24 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor
 
 				//o if second block reach end
 				if ((blocks[1].getPosY() >= Gdx.graphics.getHeight())) {
+
 					blocks[1].setHeight(randomHeighth());
 					blocks[1].setWidth((randomWidth()));
 					blocks[1].setPosX(randomPos(blocks[1].getWidth()));
 					blocks[1].setPosY(0 - blocks[1].getHeight());
 					blocks[1].setSpeed(randomSpeed(timePast));
+
 				}
 
 				//o if 3rd block reach end
 				if (((blocks[2].getPosY() <= 0 - blocks[2].getHeight()) || (blocks[2].getPosX() <= 0 - blocks[2].getWidth())) || (blocks[2].getPosY() >= Gdx.graphics.getHeight()) || (blocks[2].getPosX() >= Gdx.graphics.getWidth()) || (blocks[2].getPosY() <= -blocks[2].getHeight())) {
+
+					if (timePast >= 10.0 && timePast < 20.0 && blocks [2].getMonePhoto() == 0 )
+					{
+						blocks[2].setTexture("john.png");
+						blocks[2].setMonePhoto(1);
+					}
+
 					blocks[2].setHeight(randomHeighth());
 					blocks[2].setWidth((randomWidth()));
 					blocks[2].setPosX(0 - blocks[2].getWidth());
@@ -138,6 +147,13 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor
 
 				//o if 4th block reach end
 				if (((blocks[3].getPosY() <= 0 - blocks[3].getHeight()) || (blocks[3].getPosX() <= 0 - blocks[3].getWidth())) || (blocks[3].getPosY() >= Gdx.graphics.getHeight()) || (blocks[3].getPosX() >= Gdx.graphics.getWidth())) {
+
+					if (timePast >= 10.0 && timePast < 20.0 && blocks [3].getMonePhoto() == 0 )
+					{
+						blocks[3].setTexture("john2.png");
+						blocks[3].setMonePhoto(1);
+					}
+
 					blocks[3].setHeight(randomHeighth());
 					blocks[3].setWidth((randomWidth()));
 					blocks[3].setPosX(Gdx.graphics.getWidth());
@@ -148,6 +164,14 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor
 
 				//o if 5th block reach end
 				if (((blocks[4].getPosY() <= 0 - blocks[4].getHeight()) || (blocks[4].getPosX() <= 0 - blocks[4].getWidth())) || (blocks[4].getPosY() >= Gdx.graphics.getHeight()) || (blocks[4].getPosX() >= Gdx.graphics.getWidth())) {
+
+					if (timePast >= 20.0 && timePast < 30.0 && blocks [4].getMonePhoto() == 0 )
+					{
+						blocks[4].setTexture("eliad.png");
+						blocks[4].setMonePhoto(1);
+					}
+
+
 					blocks[4].setHeight(randomHeighth());
 					blocks[4].setWidth((randomWidth()));
 					blocks[4].setPosX(0 - blocks[4].getWidth());
@@ -158,6 +182,13 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor
 
 				//o if 6th block reach end
 				if (((blocks[5].getPosY() <= 0 - blocks[5].getHeight()) || (blocks[5].getPosX() <= 0 - blocks[5].getWidth())) || (blocks[5].getPosY() >= Gdx.graphics.getHeight()) || (blocks[5].getPosX() >= Gdx.graphics.getWidth())) {
+
+					if (timePast >= 20.0 && timePast < 30.0 && blocks [5].getMonePhoto() == 0 )
+					{
+						blocks[5].setTexture("tamuz2.png");
+						blocks[5].setMonePhoto(1);
+					}
+
 					blocks[5].setHeight(randomHeighth());
 					blocks[5].setWidth((randomWidth()));
 					blocks[5].setPosX(Gdx.graphics.getWidth());
@@ -168,6 +199,14 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor
 
 				//o if 7th block reach end
 				if ((blocks[6].getPosY() >= Gdx.graphics.getHeight()) || (blocks[1].getPosY() >= Gdx.graphics.getHeight()) || (blocks[6].getPosY() <= -blocks[6].getHeight())) {
+
+
+					if (timePast >= 25.0 && blocks [6].getMonePhoto() == 0 )
+					{
+						blocks[6].setTexture("yam.png");
+						blocks[6].setMonePhoto(1);
+					}
+
 					blocks[6].setHeight(randomHeighth());
 					blocks[6].setWidth((randomWidth()));
 					blocks[6].setPosX(Gdx.graphics.getWidth());
@@ -178,6 +217,13 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor
 
 				//o if 8th block reach end
 				if ((blocks[7].getPosY() <= -blocks[7].getHeight()) || (blocks[7].getPosY() >= Gdx.graphics.getHeight()) || (blocks[7].getPosY() <= -blocks[7].getHeight())) {
+
+					if (timePast >= 30.0 && blocks [7].getMonePhoto() == 0 )
+					{
+						blocks[7].setTexture("yam2.png");
+						blocks[7].setMonePhoto(1);
+					}
+
 					blocks[7].setHeight(randomHeighth());
 					blocks[7].setWidth((randomWidth()));
 					blocks[7].setPosX(randomPos(blocks[7].getWidth()));
@@ -267,6 +313,10 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor
 		startMenu.getTexture().dispose();
 		lostMenu.getBatch().dispose();
 		lostMenu.getTexture().dispose();
+		lostMenu.getFont1().getFont().dispose();
+		lostMenu.getFont1().getBatch().dispose();
+		lostMenu.getFont2().getFont().dispose();
+		lostMenu.getFont2().getBatch().dispose();
 		background.getBatch().dispose();
 		background.getTexture().dispose();
 		myText.getSpriteBatch().dispose();
@@ -278,6 +328,8 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor
 		startFont.getFont().dispose();
 		timeFont.getBatch().dispose();
 		timeFont.getFont().dispose();
+
+
 		for(int i=0; i<blocks.length; i++)
 		{
 			blocks[i].getBatch().dispose();
@@ -300,8 +352,11 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor
 		//o if lost game and restart
 		if(gameLost)
 		{
-			dispose();
-			create();
+			//dispose();
+			//create();
+			setInitialBlocks(blocks,1,1,1,1);;
+			//isGame = true;
+			finalStart = false;
 		}
 
 

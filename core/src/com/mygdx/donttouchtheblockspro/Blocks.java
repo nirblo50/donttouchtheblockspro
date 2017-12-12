@@ -13,6 +13,8 @@ public class Blocks
 {
     private Texture texture;
     private Batch batch;
+    public static int count = 0;
+    private int monePhoto;
 
     private int posX;       //o the x position of the block
     private int posY;       //o the y position of the block
@@ -23,7 +25,13 @@ public class Blocks
 
     public Blocks()
     {
-        texture = new Texture(Gdx.files.internal("block4.png"));
+       monePhoto = 0;
+        count++;
+        //texture = new Texture(Gdx.files.internal("block4.png"));
+        if (count %2 == 0)
+            texture = new Texture(Gdx.files.internal("lior2.png"));
+        else
+            texture = new Texture(Gdx.files.internal("omer.png"));
         batch = new SpriteBatch();
         enable = false;
     }
@@ -107,5 +115,16 @@ public class Blocks
         return speed;
     }
 
+    public void setTexture(String photo)
+    {
+        texture = new Texture(Gdx.files.internal(photo));
+    }
 
+    public void setMonePhoto(int monePhoto) {
+        this.monePhoto = monePhoto;
+    }
+
+    public int getMonePhoto() {
+        return monePhoto;
+    }
 }

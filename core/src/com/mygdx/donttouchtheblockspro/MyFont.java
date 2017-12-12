@@ -49,6 +49,14 @@ public class MyFont
     }
 
 
+    public void drawText(int x, int y, String text)
+    {
+        batch.begin();
+        font.draw(batch, text,x,y);
+        batch.end();
+    }
+
+
     public void drawTime(float time)
     {
         int x = (int)font.getLineHeight()/2;
