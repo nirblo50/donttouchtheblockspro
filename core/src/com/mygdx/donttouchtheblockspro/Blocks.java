@@ -18,7 +18,7 @@ public class Blocks
 
     private int posX;       //o the x position of the block
     private int posY;       //o the y position of the block
-    private int width;     //o the weidth of the block
+    private int width;     //o the width of the block
     private int height;     //o the height of the block
     private int speed;
     private boolean enable;     //o enables the block

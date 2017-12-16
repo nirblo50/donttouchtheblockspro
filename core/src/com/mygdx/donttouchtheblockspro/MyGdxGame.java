@@ -365,7 +365,7 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor
 			isGame = true;
 
 		//o if already inside "in between" page and player touch screen
-		//else if (posX >= cicleX && posX <= cicleX+radius && posY >= cicleY && posY <= cicleY+radius )
+		//else if (posX >= circleX && posX <= circleX+radius && posY >= circleY && posY <= circleY+radius )
 		else if(posX > 0)
 			finalStart = true;
 
